@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">RoommateFinder</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>  
+<!--------------------------------------------------------------------->
+ <div class="row g-0">
+    <div class="col-md-4 d-flex align-items-center justify-content-center">
+      <div class="card-body">
+        <h1 class="card-title text-center">Welcome Back</h1>
+        <br>
+        <form (ngSubmit)="login()" #loginForm="ngForm">
+          <div class="mb-3">
+            <input type="text" id="username" name="username" [(ngModel)]="name" class="form-control" placeholder="Username" required>
+          </div>
+          <div class="mb-3">
+            <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" placeholder="Password" required>
+          </div>
+          <div class="d-grid gap-2 col-6 mx-auto mx-md-left">
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+        <p *ngIf="errorMessage" class="error mt-3" style="color: red;">{{ errorMessage }}</p>
+        <div class="w-100 position-relative"></div>
+        <p class="mt-3">Don't have an account yet? <a routerLink="/register">Register</a></p>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="position-relative">
+        <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2787&q=80" class="img-fluid" alt="placeholder image" style="width: 100%; height: 30rem; padding: 2rem 2rem 2rem 2rem; border-radius: 3rem;">
+      </div>
+    </div>
+  </div>
+

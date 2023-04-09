@@ -1,0 +1,10 @@
+.curved {
+    border-radius: 20px;
+  }
+  
+  .card {
+    margin: 2rem;
+    overflow: hidden; /* This is to ensure that the curve is applied only to the border */
+  }
+
+  
