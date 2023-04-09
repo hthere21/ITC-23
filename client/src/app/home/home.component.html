@@ -36,6 +36,7 @@
     </div>
   </nav>  
 <!--------------------------------------------------------------------->
+<div class="card">
 <!-- Search bar -->
 <div class="row height d-flex justify-content-center align-items-center">
     <div class="col-md-8">
@@ -61,11 +62,12 @@
               </div>
               <div class="col-md-7">
                 <div class="card-body">
-                  <h3 class="card-title">{{ user.name }}</h3>
-                  <h5>Gender: {{user.gender}}, {{user.age}} years old</h5>
+                  <h1 class="card-title">{{ user.name }}</h1>
+                  <h4>Gender: {{user.gender}}, {{user.age}} years old</h4>
                   <p class="card-text">Bio: {{ user.bio }}</p>
                   <p class="card-text">Major: {{ user.major }}</p>
                   <p class="card-text">University: {{ user.university }}</p>
+                  <p class="card-text">Type: <strong>{{ user.sleep | uppercase}}</strong></p>
                         
                   <button class="btn btn-primary me-2" (click)="saveUser(user._id)">Save</button>
                   <button class="btn btn-primary" (click)="startChat(userInfo, user)">Chat</button>
@@ -93,3 +95,4 @@
     </li>
 </ul>
 </nav>
+</div>

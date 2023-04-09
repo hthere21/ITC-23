@@ -4,6 +4,8 @@ var userModel = require('./userModel');
 var userService = require('./userService');
 var userInfo = "";
 let isLoggedIn = false;
+const { ObjectId } = require('mongodb');
+
  
 const createUserControllerFn = async (req, res) => {
   try {
@@ -155,9 +157,10 @@ const saveUserControllerFn = async (req, res) => {
 
     // Retrieve the user to be saved
     const userToSave = await userModel.findById(userId);
+    console.log(userToSave);
 
     // Check if the user is null or if the logged-in user has already saved the user
-    if (!userToSave || userToSave.savedList.includes(loggedInUserId)) {
+    if (!userToSave || userInfo.savedList.includes(loggedInUserId)) {
       return res.status(400).json({ success: false, message: 'Unable to save user' });
     }
 
@@ -193,29 +196,32 @@ const getSavedUsers = async (req, res) => {
   }
 };
 
-// const getOrCreateChat = async (req, res) => {
-//   try {
-//     const userId = req.params.userId;
-//     const currentUser = req.user; // assuming you're using authentication and have a middleware to get the current user
 
-//     const user = await userModel.findById(userId);
-//     if (!user) {
-//       return res.status(404).json({ success: false, message: 'User not found' });
-//     }
+const removeSavedUsers = async (req, res) => {
+  try {
+    const { savedUserId } = req.body;
+    console.log(savedUserId);
+    const user = await userModel.findById(userInfo._id); // find the logged-in user by id
 
-//     let chat = await chatModel.findOne({ members: { $all: [currentUser._id, user._id] } });
-//     if (!chat) {
-//       chat = new chatModel({ members: [currentUser._id, user._id] });
-//       await chat.save();
-//     }
+  
+    const savedUserIndex = user.savedList.findIndex((id) => id.toString() === savedUserId);// find the index of the saved user in the logged-in user's savedList array
+    console.log(savedUserIndex);
+    if (savedUserIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Saved user not found' });
+    }
+  
+    user.savedList.splice(savedUserIndex, 1); // remove the saved user from the logged-in user's savedList array
+    await user.save(); // save the updated user object to the database
+  
+    res.status(200).json({ success: true, message: 'Saved user removed successfully' });
+  } 
+   catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
 
-//     res.redirect(`/chat/${chat._id}`); // assuming you have a chat page where the chat can take place
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ success: false, message: 'Internal server error' });
-//   }
-// };
 
-module.exports = { createUserControllerFn ,updateUserControllerFn ,loginUserControllerFn, getAllUsersControllerFn, searchUser, getUser, isLogIn, saveUserControllerFn, getSavedUsers, logoutUserControllerFn}
+module.exports = { createUserControllerFn ,updateUserControllerFn ,loginUserControllerFn, getAllUsersControllerFn, searchUser, getUser, isLogIn, saveUserControllerFn, getSavedUsers, logoutUserControllerFn, removeSavedUsers}
 
 

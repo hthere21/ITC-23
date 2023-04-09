@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">RoommateFinder</a>
+      <a class="navbar-brand" href="home">RoommateFinder</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -36,20 +36,28 @@
     </div>
   </nav>  
 <!--------------------------------------------------------------------->
-
+<div class="body">
 <div *ngIf="savedUsers.length > 0">
-    <h1>Saved Users</h1>
-    <div class="card-container">
-      <div *ngFor="let user of savedUsers" class="card">
+  <h1>Saved Users:</h1>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div *ngFor="let user of savedUsers" class="col">
+      <div class="card h-100">
         <div class="card-body">
           <h5 class="card-title">{{ user.name }}</h5>
           <p class="card-text">{{ user.bio }}</p>
+          <button class="btn btn-primary me-2" (click)="startChat(userInfo, user)">Chat</button>
+          <button class="btn btn-danger" (click)="removeUser(user)">Remove</button>
         </div>
       </div>
     </div>
   </div>
-  <div *ngIf="savedUsers.length === 0">
-    <p>No saved users yet!</p>
-  </div>
+</div>
+
+<div *ngIf="savedUsers.length === 0">
+  <p class="text-muted">No saved users yet!</p>
+</div>
+</div>
+
+
   
   

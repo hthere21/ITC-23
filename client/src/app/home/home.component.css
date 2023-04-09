@@ -60,3 +60,7 @@
      height: 50px;
      width: 110px;
     }
+
+  .card {
+    padding-top: 1rem;
+  }

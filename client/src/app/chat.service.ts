@@ -34,10 +34,12 @@ export class ChatService {
     console.log("Message"+ data);
   }
 
-  getMessage(): Observable<any> {
+  getMessage(roomId: string): Observable<{user: string, message: string}> {
     return new Observable<{user: string, message: string}>(observer => {
       this.socket.on('new message', (data) => {
-        observer.next(data);
+        if (data.roomId === roomId) {
+          observer.next(data);
+        }
       });
 
       return () => {
@@ -46,7 +48,8 @@ export class ChatService {
     });
   }
 
-  getStorage(): Observable<any> {
+
+  getStorage(roomId: string): Observable<any> {
     return this.http.get<any>(this.messagesUrl).pipe(
       catchError(this.handleError)
     );
@@ -68,8 +71,12 @@ export class ChatService {
       'Something bad happened; please try again later.');
   };
 
-  setStorage(data: any) {
-    this.http.post(this.messagesUrl, data).subscribe(
+  setStorage(roomId: any, message: any) {
+    const body = {
+      roomId: roomId,
+      message: message
+    };
+    this.http.post(this.messagesUrl, body).subscribe(
       response => {
         console.log('Data saved successfully:', response);
       },
@@ -78,6 +85,5 @@ export class ChatService {
       }
     );
   }
-  
   
 }

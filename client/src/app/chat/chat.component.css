@@ -1,0 +1,22 @@
+.card-body {
+    max-height: 39rem;
+    overflow-y: auto !important;
+  }
+  
+  
+  .card {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .box-fluid {
+    padding: 20px;
+  }
+
+  .card-header {
+    font-size: 24px;
+  }
+
+  
+  
+  

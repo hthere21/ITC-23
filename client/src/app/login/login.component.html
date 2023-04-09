@@ -7,7 +7,8 @@
   </div>
 </nav>  
 <!--------------------------------------------------------------------->
- <div class="row g-0">
+<div class="card">
+  <div class="row g-0">
     <div class="col-md-4 d-flex align-items-center justify-content-center">
       <div class="card-body">
         <h1 class="card-title text-center">Welcome Back</h1>
@@ -19,11 +20,11 @@
           <div class="mb-3">
             <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" placeholder="Password" required>
           </div>
-          <div class="d-grid gap-2 col-6 mx-auto mx-md-left">
-            <button type="submit" class="btn btn-primary">Login</button>
+          <p *ngIf="errorMessage" class="error mt-3" style="color: red; text-align: center;">{{ errorMessage }}</p>
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg">Login</button>
           </div>
         </form>
-        <p *ngIf="errorMessage" class="error mt-3" style="color: red;">{{ errorMessage }}</p>
         <div class="w-100 position-relative"></div>
         <p class="mt-3">Don't have an account yet? <a routerLink="/register">Register</a></p>
       </div>
@@ -34,4 +35,6 @@
       </div>
     </div>
   </div>
+</div>
+
 

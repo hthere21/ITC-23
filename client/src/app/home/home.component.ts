@@ -47,7 +47,6 @@ export class HomeComponent implements OnInit {
 
     this.http.get<any[]>('http://localhost:3000/get-user', {}).subscribe(
       (data) => {
-
         this.userInfo = data;
         this.loading = false;
       },

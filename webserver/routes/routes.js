@@ -14,6 +14,7 @@ router.route('/get-user').get(userController.getUser);
 router.route('/update-user').put(userController.updateUserControllerFn);
 router.route('/save-user').post(userController.saveUserControllerFn);
 router.route('/get-save-user').get(userController.getSavedUsers);
+router.route('/remove-user').post(userController.removeSavedUsers);
 //Chat routing
 router.route('/chat').post(messageController.createChat);
 router.route('/chat').get(messageController.getChat);

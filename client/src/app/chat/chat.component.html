@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
+  <div class="container-fluid mx-auto">
       <a class="navbar-brand" href="#">RoommateFinder</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -36,67 +36,32 @@
     </div>
   </nav>  
 <!--------------------------------------------------------------------->
-<div class="chat-wrapper">
-    <div class="chat-header">
-      <h1>Chat with {{ receiver }}</h1>
-    </div>
-    <!-- <div class="chat-messages">
-      <div *ngFor="let message of messageArray">
-        <div>{{ message }}</div>
-      </div>
-    </div>
-    <div class="chat-input">
-      <form (ngSubmit)="sendMessage()">
-        <input type="text" #inputBox placeholder="Type your message here..." [(ngModel)]="messageInput" (input)="messageInput = inputBox.value">
-        <button type="submit">Send</button>
-      </form>
-    </div> -->
-  </div>
-
-  <!---->
-
-      <div class="col-md-8">
-  
-        <div class="chat-container">
-          <ng-container *ngIf="receiver">
-            <div class="chat-header">
-  
-              <!-- <p class="username">{{ receiver }}</p> -->
-  
-            </div>
-  
-            <div class="chat-body">
-              <div *ngFor="let item of messageArray">
-                <p class="message-container">{{item?.message}}</p>
-              </div>
-            </div>
-  
-            <div class="chat-footer">
-  
-              <div class="row">
-                <div class="col-md-10">
-                  <div class="form-group mb-0">
-                    <input type="text"
-                           placeholder="Type a message"
-                           class="form-control"
-                           [(ngModel)]="messageText"
-                           (keyup)="$event.keyCode === 13 && sendMessage()"
-                    />
-                  </div>
-                </div>
-  
-                <div class="col-md-2 text-center align-self-center">
-                  <button class="btn btn-primary btn-sm px-3"
-                          (click)="sendMessage()">Send
-                  </button>
-                </div>
-              </div>
-  
-            </div>
-          </ng-container>
+<div class="box-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-8 mx-auto w-100">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          Chat with {{ receiver }}
         </div>
-  
+        <div class="card-body">
+          <div class="card-body" #chatBody>
+            <div *ngFor="let item of messageArray">
+              <p class="message-container">{{item?.message ? item.message : item}}</p>
+            </div>
+          </div>          
+        </div>
+        <div class="card-footer">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Type a message" [(ngModel)]="messageText" (keyup)="onKeyUp($event)">
+            <button class="btn btn-primary" (click)="sendMessage()">Send</button>
+          </div>
+        </div>        
       </div>
+    </div>
+  </div>
+</div>
+
+
   
   
   

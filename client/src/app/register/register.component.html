@@ -1,312 +1,516 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">RoommateFinder</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </nav>  
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">RoommateFinder</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
 <!--------------------------------------------------------------------->
-<div *ngIf=!continue>
-    <section class="vh-100" style="background-color: #eee;">
-        <div class="container h-100">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-lg-12 col-xl-11">
-              <div class="card text-black" style="border-radius: 25px;">
-                <div class="card-body p-md-5">
-                  <div class="row justify-content-center">
-                    <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-      
-                      <p class="text-center h2 fw-bold mb-5 mx-1 mx-md-4 mt-4">Register your account</p>
-      
-                      <form class="mx-1 mx-md-4">
-      
-                        <div class="d-flex flex-row align-items-center mb-4">
-                          <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                          <div class="form-outline flex-fill mb-0">
-                            <input type="text" id="username" class="form-control" name="username" [(ngModel)]="username" placeholder="Your Name"/>
-                          </div>
-                        </div>
-      
-                        <div class="d-flex flex-row align-items-center mb-4">
-                          <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                          <div class="form-outline flex-fill mb-0">
-                            <input type="password" id="password" class="form-control" name="password" [(ngModel)]="password" placeholder="Password"/>
-                          </div>
-                        </div>
-      
-                        <div class="d-flex flex-row align-items-center mb-4">
-                          <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                          <div class="form-outline flex-fill mb-0">
-                            <input type="password" id="password2" class="form-control" name="password2" [(ngModel)]="password2" placeholder="Confirm Your Password"/>
-                          </div>
-                        </div>
-      
-                        <div class="form-check d-flex justify-content-center">
-                            <p *ngIf="errorMessage" class="error text-danger">{{ errorMessage }}</p>
-                        </div>
+<div *ngIf="!continue">
+  <div class="container h-100 d-flex justify-content-center align-items-center">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <p class="text-center h2 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                  Register your account
+                </p>
 
-                        <div class="form-group row">
-                            <div class="col-sm-6">
-                              <button type="submit" class="btn btn-secondary btn-lg" routerLink="/login">Back</button>
-                            </div>
-                            <div class="col-sm-6 d-flex justify-content-end">
-                              <button type="submit" class="btn btn-primary mr-6 btn-lg" (click)="next()">Next</button>
-                            </div>
-                          </div>
-      
-                      </form>
-      
-                    </div>
-                    <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                        class="img-fluid" alt="Sample image">
-      
+                <form class="mx-1 mx-md-4">
+                  <div class="mb-1">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        type="text"
+                        id="username"
+                        class="form-control"
+                        name="username"
+                        [(ngModel)]="username"
+                        placeholder="Your Name"
+                      />
                     </div>
                   </div>
-                </div>
+
+                  <div class="mb-1">
+                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        type="password"
+                        id="password"
+                        class="form-control"
+                        name="password"
+                        [(ngModel)]="password"
+                        placeholder="Password"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-1">
+                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        type="password"
+                        id="password2"
+                        class="form-control"
+                        name="password2"
+                        [(ngModel)]="password2"
+                        placeholder="Confirm Your Password"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-check d-flex justify-content-center mb-4">
+                    <p *ngIf="errorMessage" class="error text-danger">
+                      {{ errorMessage }}
+                    </p>
+                  </div>
+
+                  <div class="row mb-2">
+                    <div class="col-6">
+                      <button
+                        type="submit"
+                        class="btn btn-secondary btn-lg w-100"
+                        routerLink="/login"
+                      >
+                        Back
+                      </button>
+                    </div>
+                    <div class="col-6">
+                      <button
+                        type="submit"
+                        class="btn btn-primary btn-lg w-100"
+                        (click)="next()"
+                      >
+                        Next
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid"
+                  alt="Sample image"
+                />
               </div>
             </div>
           </div>
         </div>
-      </section>
-      
-      
+      </div>
+    </div>
+  </div>
 </div>
-  <!--Moving to next registration form-->
-  <div *ngIf=continue>
-    <div class="card">
-        <h1 class="mt-5">Fill in your information:</h1>
-        <form>
-            <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <label>Gender:</label>
-                    <select name="gender" class="form-control" [(ngModel)]="gender">
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="nonbinary">Non-binary</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label>Age:</label>
-                    <input type="number" name="age" class="form-control" [(ngModel)]="age">
-                  </div>
-                </div>
+<!--Moving to next registration form-->
+<div *ngIf="continue">
+  <div class="card">
+    <h1 class="mt-5">Fill in your information:</h1>
+    <form>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label>Gender:</label>
+            <select name="gender" class="form-control" [(ngModel)]="gender">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="nonbinary">Non-binary</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label>Age:</label>
+            <input
+              type="number"
+              name="age"
+              class="form-control"
+              [(ngModel)]="age"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label>University:</label>
+            <input
+              type="text"
+              name="university"
+              class="form-control"
+              [(ngModel)]="university"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label>Major:</label>
+            <input
+              type="text"
+              name="major"
+              class="form-control"
+              [(ngModel)]="major"
+            />
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="form-group">
+        <label>Picture:</label>
+        <input
+          type="file"
+          name="picture"
+          class="form-control-file"
+          [(ngModel)]="picture"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Short Bio:</label>
+        <textarea name="bio" class="form-control" [(ngModel)]="bio"></textarea>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>EarlyBird/OwlNight:</label>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="sleep"
+                  class="form-check-input"
+                  value="early-bird"
+                  [(ngModel)]="sleep"
+                />
+                <label class="form-check-label">Early bird</label>
               </div>
-              
-              <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <label>University:</label>
-                    <input type="text" name="university" class="form-control" [(ngModel)]="university">
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label>Major:</label>
-                    <input type="text" name="major" class="form-control" [(ngModel)]="major">
-                  </div>
-                </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="sleep"
+                  class="form-check-input"
+                  value="owl-night"
+                  [(ngModel)]="sleep"
+                />
+                <label class="form-check-label">Owl night</label>
               </div>
-              <br>
-              <div class="form-group">
-                <label>Picture:</label>
-                <input type="file" name="picture" class="form-control-file" [(ngModel)]="picture">
+            </div>
+
+            <div class="form-group">
+              <label>Guest vs No Guest:</label>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="guests"
+                  class="form-check-input"
+                  value="guests-allowed"
+                  [(ngModel)]="guests"
+                />
+                <label class="form-check-label">Guests allowed</label>
               </div>
-              
-              <div class="form-group">
-                <label>Short Bio:</label>
-                <textarea name="bio" class="form-control" [(ngModel)]="bio"></textarea>
-              </div>      
-        
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>EarlyBird/OwlNight:</label>
-                      <div class="form-check">
-                        <input type="radio" name="sleep" class="form-check-input" value="early-bird" [(ngModel)]="sleep">
-                        <label class="form-check-label">Early bird</label>
-                      </div>
-                      <div class="form-check">
-                        <input type="radio" name="sleep" class="form-check-input" value="owl-night" [(ngModel)]="sleep">
-                        <label class="form-check-label">Owl night</label>
-                      </div>
-                    </div>
-              
-                    <div class="form-group">
-                      <label>Guest vs No Guest:</label>
-                      <div class="form-check">
-                        <input type="radio" name="guests" class="form-check-input" value="guests-allowed" [(ngModel)]="guests">
-                        <label class="form-check-label">Guests allowed</label>
-                      </div>
-                      <div class="form-check">
-                        <input type="radio" name="guests" class="form-check-input" value="no-guests" [(ngModel)]="guests">
-                        <label class="form-check-label">No guests</label>
-                      </div>
-                    </div>
-              
-                    <div class="form-group">
-                      <label>Smoking/Non-smoking:</label>
-                      <div class="form-check">
-                        <input type="radio" name="smoking" class="form-check-input" value="smoking-allowed" [(ngModel)]="smoking">
-                        <label class="form-check-label">Smoking allowed</label>
-                      </div>
-                      <div class="form-check">
-                        <input type="radio" name="smoking" class="form-check-input" value="no-smoking" [(ngModel)]="smoking">
-                        <label class="form-check-label">No smoking</label>
-                      </div>
-                    </div>
-                  </div>
-        
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="pets">Pets considered:</label>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="pets" id="pets-allowed" [(ngModel)]="pets" value="pets-allowed">
-                        <label class="form-check-label" for="pets-allowed">
-                          Pets allowed
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="pets" id="no-pets" [(ngModel)]="pets" value="no-pets">
-                        <label class="form-check-label" for="no-pets">
-                          No pets
-                        </label>
-                      </div>
-                    </div>
-              
-                    <div class="form-group">
-                      <label for="lgbt">LGBT:</label>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="lgbt" id="lgbt-friendly" [(ngModel)]="lgbt" value="lgbt-friendly">
-                        <label class="form-check-label" for="lgbt-friendly">
-                          LGBT friendly
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="lgbt" id="not-lgbt-friendly" [(ngModel)]="lgbt" value="not-lgbt-friendly">
-                        <label class="form-check-label" for="not-lgbt-friendly">
-                          Not LGBT friendly
-                        </label>
-                      </div>
-                    </div>
-                  
-                    <div class="form-group">
-                      <label for="couples">Couples? Yes/No:</label>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="couples" id="couples-allowed" [(ngModel)]="couples" value="couples-allowed">
-                        <label class="form-check-label" for="couples-allowed">
-                          Couples allowed
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="couples" id="no-couples" [(ngModel)]="couples" value="no-couples">
-                        <label class="form-check-label" for="no-couples">
-                          No couples
-                        </label>
-                      </div>
-                    </div>
-                    </div>
-        
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="guests"
+                  class="form-check-input"
+                  value="no-guests"
+                  [(ngModel)]="guests"
+                />
+                <label class="form-check-label">No guests</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Smoking/Non-smoking:</label>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="smoking"
+                  class="form-check-input"
+                  value="smoking-allowed"
+                  [(ngModel)]="smoking"
+                />
+                <label class="form-check-label">Smoking allowed</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="smoking"
+                  class="form-check-input"
+                  value="no-smoking"
+                  [(ngModel)]="smoking"
+                />
+                <label class="form-check-label">No smoking</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="pets">Pets considered:</label>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="pets"
+                  id="pets-allowed"
+                  [(ngModel)]="pets"
+                  value="pets-allowed"
+                />
+                <label class="form-check-label" for="pets-allowed">
+                  Pets allowed
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="pets"
+                  id="no-pets"
+                  [(ngModel)]="pets"
+                  value="no-pets"
+                />
+                <label class="form-check-label" for="no-pets"> No pets </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="lgbt">LGBT:</label>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="lgbt"
+                  id="lgbt-friendly"
+                  [(ngModel)]="lgbt"
+                  value="lgbt-friendly"
+                />
+                <label class="form-check-label" for="lgbt-friendly">
+                  LGBT friendly
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="lgbt"
+                  id="not-lgbt-friendly"
+                  [(ngModel)]="lgbt"
+                  value="not-lgbt-friendly"
+                />
+                <label class="form-check-label" for="not-lgbt-friendly">
+                  Not LGBT friendly
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="couples">Couples? Yes/No:</label>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="couples"
+                  id="couples-allowed"
+                  [(ngModel)]="couples"
+                  value="couples-allowed"
+                />
+                <label class="form-check-label" for="couples-allowed">
+                  Couples allowed
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="couples"
+                  id="no-couples"
+                  [(ngModel)]="couples"
+                  value="no-couples"
+                />
+                <label class="form-check-label" for="no-couples">
+                  No couples
+                </label>
+              </div>
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="budget">Budget:</label>
-            <input type="text" class="form-control" name="budget" [(ngModel)]="budget">
+            <input
+              type="text"
+              class="form-control"
+              name="budget"
+              [(ngModel)]="budget"
+            />
           </div>
-        
+
           <div class="form-group">
             <label for="move-in-date">Move in date:</label>
-            <input type="date" class="form-control" name="move-in-date" [(ngModel)]="moveInDate">
+            <input
+              type="date"
+              class="form-control"
+              name="move-in-date"
+              [(ngModel)]="moveInDate"
+            />
           </div>
-        
+
           <div class="form-group">
             <label for="min-length">Length of stay (min and max):</label>
             <div class="row">
               <div class="col">
-                <input type="text" class="form-control" name="min-length" [(ngModel)]="minLength">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="min-length"
+                  [(ngModel)]="minLength"
+                />
               </div>
               <div class="col">
-                <input type="text" class="form-control" name="max-length" [(ngModel)]="maxLength">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="max-length"
+                  [(ngModel)]="maxLength"
+                />
               </div>
             </div>
           </div>
-                    
-        
-          
-                      
-                      <div class="form-group">
-                        <label>Size:</label>
-                        <select class="form-control" name="size" [(ngModel)]="size">
-                          <option value="any">Any</option>
-                          <option value="small">Small</option>
-                          <option value="large">Large</option>
-                        </select>
-                      </div>
-                      <br>
-                      <div class="form-group">
-                        <label>Required room amenities:   </label>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="amenities" [(ngModel)]="amenities.wifi" [value]="true">
-                          <label class="form-check-label">  Wifi</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="amenities" [(ngModel)]="amenities.kitchen" [value]="true">
-                          <label class="form-check-label">Kitchen</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="amenities" [(ngModel)]="amenities.parking" [value]="true">
-                          <label class="form-check-label">Parking</label>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label>Furnished:</label>
-                            <div class="form-check">
-                              <input class="form-check-input" type="radio" name="furnished" [(ngModel)]="furnished" value="yes">
-                              <label class="form-check-label">Yes</label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="radio" name="furnished" [(ngModel)]="furnished" value="no">
-                              <label class="form-check-label">No</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label>Occupancy:</label>
-                            <div class="form-check">
-                              <input class="form-check-input" type="radio" name="occupancy" [(ngModel)]="this.occupancy" value="single">
-                              <label class="form-check-label">Single</label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="radio" name="occupancy" [(ngModel)]="this.occupancy" value="double">
-                              <label class="form-check-label">Double</label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="radio" name="occupancy" [(ngModel)]="this.occupancy" value="triple">
-                              <label class="form-check-label">Triple</label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="radio" name="occupancy" [(ngModel)]="this.occupancy" value="quadruple">
-                              <label class="form-check-label">Quadruple</label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>           
-                    <br>
-                      <div class="form-group row">
-                        <div class="col-sm-6">
-                          <button type="submit" class="btn btn-secondary btn-lg" (click)="back()">Back</button>
-                        </div>
-                        <div class="col-sm-6 d-flex justify-content-end">
-                          <button type="submit" class="btn btn-primary mr-6 btn-lg" (click)="register()">Submit</button>
-                        </div>
-                      </div>        
+
+          <div class="form-group">
+            <label>Size:</label>
+            <select class="form-control" name="size" [(ngModel)]="size">
+              <option value="any">Any</option>
+              <option value="small">Small</option>
+              <option value="large">Large</option>
+            </select>
+          </div>
+          <br />
+          <div class="form-group">
+            <label>Required room amenities: </label>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="amenities"
+                [(ngModel)]="amenities.wifi"
+                [value]="true"
+              />
+              <label class="form-check-label"> Wifi</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="amenities"
+                [(ngModel)]="amenities.kitchen"
+                [value]="true"
+              />
+              <label class="form-check-label">Kitchen</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="amenities"
+                [(ngModel)]="amenities.parking"
+                [value]="true"
+              />
+              <label class="form-check-label">Parking</label>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Furnished:</label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="furnished"
+                    [(ngModel)]="furnished"
+                    value="yes"
+                  />
+                  <label class="form-check-label">Yes</label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="furnished"
+                    [(ngModel)]="furnished"
+                    value="no"
+                  />
+                  <label class="form-check-label">No</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Occupancy:</label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="occupancy"
+                    [(ngModel)]="this.occupancy"
+                    value="single"
+                  />
+                  <label class="form-check-label">Single</label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="occupancy"
+                    [(ngModel)]="this.occupancy"
+                    value="double"
+                  />
+                  <label class="form-check-label">Double</label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="occupancy"
+                    [(ngModel)]="this.occupancy"
+                    value="triple"
+                  />
+                  <label class="form-check-label">Triple</label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="occupancy"
+                    [(ngModel)]="this.occupancy"
+                    value="quadruple"
+                  />
+                  <label class="form-check-label">Quadruple</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="container">
+                <button type="submit" class="btn btn-secondary btn-lg" style="margin-right: 1rem;" (click)="back()">Back</button>
+                <button type="submit" class="btn btn-primary btn-lg" (click)="register()">Submit</button>
+              </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
-   
-  
