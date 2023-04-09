@@ -1,5 +1,4 @@
-# ITC-roommate-finder
-# ITC-2023
+# ITC-roommate-finder-2023
 
 **What is this app about?**
 
