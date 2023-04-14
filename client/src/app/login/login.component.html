@@ -15,7 +15,7 @@
         <br>
         <form (ngSubmit)="login()" #loginForm="ngForm">
           <div class="mb-3">
-            <input type="text" id="username" name="username" [(ngModel)]="name" class="form-control" placeholder="Username" required>
+            <input type="email" id="email" name="email" [(ngModel)]="email" class="form-control" placeholder="Email" required>
           </div>
           <div class="mb-3">
             <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" placeholder="Password" required>

@@ -1,22 +1,49 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0.25rem;
+}
+
 .card-body {
-    max-height: 39rem;
-    overflow-y: auto !important;
-  }
-  
-  
-  .card {
-    width: 100%;
-    margin: 0 auto;
-  }
+  flex-grow: 1;
+  overflow-y: auto;
+}
 
-  .box-fluid {
-    padding: 20px;
-  }
+.card-footer {
+  margin-top: auto;
+  position: relative;
+  bottom: 0;
+  z-index: 1;
+}
 
-  .card-header {
-    font-size: 24px;
-  }
+.border-right {
+  border-right: 0.5px solid gray;
+}
 
-  
-  
-  
+.list-group-item .text-right {
+  text-align: right;
+}
+
+.list-group-item .text-left {
+  text-align: left;
+}
+
+.card-footer .input-group {
+  position: relative;
+}
+
+.card-footer .form-control {
+  border-radius: 20px;
+}
+
+.card-footer .btn-primary {
+  border-radius: 20px;
+}

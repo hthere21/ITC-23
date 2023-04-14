@@ -1,98 +1,180 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">RoommateFinder</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="home">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="home">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="home">Support</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="home">FAQ</a>
-          </li>
-        </ul>
-        <div class="navbar-nav">
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown position-static">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <mat-icon class="user-icon mr-2">account_circle</mat-icon>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="user">Account</a>
-                  <a class="dropdown-item" href="/login" (click)="logout()">Log out</a>
-                </div>
-              </li>            
-            </ul>
-          </div>          
-      </div>
-    </div>
-  </nav>  
-<!--------------------------------------------------------------------->
-<div class="card">
-<!-- Search bar -->
-<div class="row height d-flex justify-content-center align-items-center">
+  <!-- Search bar -->
+  <div class="row height d-flex justify-content-center align-items-center">
     <div class="col-md-8">
       <div class="search">
         <mat-icon class="fa fa-search">search</mat-icon>
-        <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="" (keydown.enter)="search()">
-        <button class="btn btn-primary" (click)="search()" >Search</button>
-      </div>     
-    </div> 
-</div>
-<!-- Show spinner if loading is true -->
-<div *ngIf="loading" class="spinner-container">
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="searchTerm"
+          placeholder=""
+          (keydown.enter)="search()"
+        />
+        <button class="btn btn-primary" (click)="search()">Search</button>
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <div class="row">
+      <div class="col-md-2">
+        <form (ngSubmit)="onSubmit()" [formGroup]="filterForm" name="filterForm" class="small">
+          <h2>Filters</h2>
+          <hr>
+          <div class="mb-1">
+            <label class="form-label">Zipcode:</label>
+            <input type="number" class="form-control" formControlName="zipcode"/>
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Gender:</label>
+            <select class="form-select" formControlName="gender">
+              <option value="">Any</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="nonbinary">Non-binary</option>
+            </select>
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Age:</label>
+            <input type="number" class="form-control" formControlName="age"/>
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Sleep:</label>
+            <select class="form-select" formControlName="sleep">
+              <option value="">Any</option>
+              <option value="early-bird">Early bird</option>
+              <option value="owl-night">Night owl</option>
+            </select>
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Guests:</label>
+            <select class="form-select" formControlName="guests">
+              <option value="guests-allowed">Guests allowed</option>
+              <option value="no-guests">No guests</option>
+            </select>
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Smoking:</label>
+            <select class="form-select" formControlName="smoking">
+              <option value="smoking-allowed">Smoking allowed</option>
+              <option value="no-smoking">No smoking</option>
+            </select>
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Pets:</label>
+            <select class="form-select" formControlName="pets">
+              <option value="pets-allowed">Pets allowed</option>
+              <option value="no-pets">No pets</option>
+            </select>
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Budget:</label>
+            <input type="text" class="form-control" formControlName="budget"/>
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Move-in date:</label>
+            <input type="date" class="form-control" formControlName="move_in_date"/>
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Amenities:</label>
+            <div formGroupName="amenities">
+              <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" formControlName="wifi"/>
+                <label class="form-check-label">WiFi</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" formControlName="kitchen"/>
+                <label class="form-check-label">Kitchen</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" formControlName="parking"/>
+                <label class="form-check-label">Parking</label>
+              </div>
+            </div>
+          </div>
+          <div class="mb-1">
+            <label class="form-label">Size:</label>
+            <select
+        
+        class="form-select" formControlName="size">
+        <option value="">Any</option>
+        <option value="single-room">Single Room</option>
+        <option value="double-room">Double Room</option>
+        <option value="studio">Studio</option>
+        <option value="apartment">Apartment</option>
+        </select>
+        
+          </div>
+          <hr>
+          <div>
+            <button type="button" class="btn btn-primary m-2" (click)="resetFilter()">Reset</button>
+            <button type="submit" class="btn btn-danger m-2">Apply filters</button>
+          </div>          
+        </form>
+  </div>
+  <div class="col-md-10">
+  <!-- Show spinner if loading is true -->
+  <div *ngIf="loading" class="spinner-container">
     <div class="spinner"></div>
-</div>
+  </div>
   <!-- Show user cards if loading is false -->
   <div *ngIf="!loading && !noUsersFound">
     <div class="hold">
-    <div *ngFor="let user of pagedUsers" class="mb-4 mf-10 mr-10">
+      <div *ngFor="let user of pagedUsers" class="mb-2">
         <div class="card">
-            <div class="row">
-              <div class="col-md-5">
-                <img src="https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1056&q=80" class="img-fluid" alt="Avatar" style="width: 100%; height: 20rem; padding: 0.5rem; border-radius: 1rem;">
-              </div>
-              <div class="col-md-7">
-                <div class="card-body">
-                  <h1 class="card-title">{{ user.name }}</h1>
-                  <h4>Gender: {{user.gender}}, {{user.age}} years old</h4>
-                  <p class="card-text">Bio: {{ user.bio }}</p>
-                  <p class="card-text">Major: {{ user.major }}</p>
-                  <p class="card-text">University: {{ user.university }}</p>
-                  <p class="card-text">Type: <strong>{{ user.sleep | uppercase}}</strong></p>
-                        
-                  <button class="btn btn-primary me-2" (click)="saveUser(user._id)">Save</button>
-                  <button class="btn btn-primary" (click)="startChat(userInfo, user)">Chat</button>
-                </div>
+          <div class="row">
+            <div class="col-md-5">
+              <img src="assets/{{ user.gender }}.jpg" class="img-fluid" alt="Avatar"
+                style="width: 90%; height: 20rem; padding: 0.1rem; border-radius: 1rem;" />
+            </div>
+            <div class="col-md-7">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <h2 class="card-title mb-0">{{ user.name }}:</h2>
+                  <h4 class="ms-3 mb-0">{{ user.gender }}, {{ user.age }} years old</h4>
+                </div>                               
+                <h3 class="card-text mb-1">Looking to rent in area: {{ user.zipcode }}</h3>
+                <p class="card-text">Bio: {{ user.bio }}</p>
+                <p class="card-text">Major: {{ user.major }}</p>
+                <p class="card-text">University: {{ user.university }}</p>
+                <p class="card-text">Type: <strong>{{ user.sleep | uppercase }}</strong></p>
+                <p class="card-text">Budget: ${{ user.budget }}</p>
+                <p class="card-text">Move-in date: {{ user.move_in_date | date:'MMM d, y' }}</p>
+                <button class="btn btn-primary me-2" (click)="saveUser(user._id)">Save</button>
+                <button class="btn btn-primary" (click)="startChat(userInfo, user)">Chat</button>
               </div>
             </div>
-          </div>          
-    </div>
+          </div>
+        </div>        
+      </div>
     </div>
   </div>
-<br>
-<div *ngIf="!loading && users.length === 0 && noUsersFound">
+  <br />
+  <div class="text-center m-2" *ngIf="!loading && users.length === 0 && noUsersFound">
     No users match your search.
   </div>
-<nav aria-label="...">
-<ul class="pagination justify-content-center">
-    <li class="page-item" [class.disabled]="currentPage == 1">
-    <a class="page-link" (click)="onPrev()" tabindex="-1" aria-disabled="true">Previous</a>
-    </li>
-    <li class="page-item" *ngFor="let page of pages" [class.active]="currentPage == page">
-    <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
-    </li>
-    <li class="page-item" [class.disabled]="currentPage == totalPages">
-    <a class="page-link" (click)="onNext()">Next</a>
-    </li>
-</ul>
-</nav>
-</div>
+  <nav aria-label="...">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage == 1">
+        <a
+          class="page-link"
+          (click)="onPrev()"
+          tabindex="-1"
+          aria-disabled="true"
+          >Previous</a
+        >
+      </li>
+      <li
+        class="page-item"
+        *ngFor="let page of pages"
+        [class.active]="currentPage == page"
+      >
+        <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage == totalPages">
+        <a class="page-link" (click)="onNext()">Next</a>
+      </li>
+    </ul>
+  </nav>
+
+
+

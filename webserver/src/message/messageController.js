@@ -1,8 +1,8 @@
 const ChatModel = require('./messageModel');
+const UserModel = require('../user/userModel');
 
 async function createChat(req, res) {
-  const {roomId, userId, partnerId, message} = req.body;
-  console.log(req.body);
+  const {roomId, sendername, receivername, sender_id, receiver_id, message} = req.body;
 
   try {
     let chat = await ChatModel.findOne({
@@ -15,16 +15,27 @@ async function createChat(req, res) {
     if (!chat) {
       const newChat = new ChatModel({
         roomId: roomId,
-        message: message
       });        
       await newChat.save();
-      console.log(`New chat created between ${userId} and ${partnerId}`);
     } else {
       chat.message.push(message);
-      await chat.save();
-      console.log(`Existing chat updated between ${userId} and ${partnerId}`);      
+      await chat.save();  
     }
 
+    // add chat history for sender
+    const sender = await UserModel.findById(sender_id);
+    const receiver = await UserModel.findById(receiver_id);
+    if (sender.chatHistory.indexOf(receiver_id) === -1 && chat.message !== null) {
+      sender.chatHistory.push(receiver);
+      await sender.save();
+    }
+    
+    // add chat history for receiver
+    
+    if (receiver.chatHistory.indexOf(sender_id) === -1 && chat.message !== null) {
+      receiver.chatHistory.push(sender);
+      await receiver.save();
+    }
     res.status(200).json({ message: 'Chat created/updated successfully' });
   } catch (err) {
     console.log('Error creating/updating chat:', err);
@@ -36,6 +47,8 @@ async function getChat(req, res) {
   try {
     const { roomId } = req.query; // assuming roomId is passed in the request body
     const chats = await ChatModel.find({ roomId: roomId });
+
+    
     res.status(200).json(chats);
   } catch (err) {
     console.log('Error getting chats:', err);
@@ -43,4 +56,8 @@ async function getChat(req, res) {
   }
 }
 
-module.exports = { createChat, getChat };
+async function chatHistory(req,res) {
+
+}
+
+module.exports = { createChat, getChat, chatHistory };

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { io, Socket } from 'socket.io-client';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -10,47 +10,42 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 export class ChatService {
   private messagesUrl = 'http://localhost:3000/chat';
   private socket: Socket;
-  //private activeChat: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
   constructor(private http: HttpClient) {
     this.socket = io('http://localhost:3000', {transports: ['websocket', 'polling', 'flashsocket']});
-    //this.socket = io('http://localhost:3000', { transports: ['websocket'] });
-
-    // Add error handling for socket.io connection
-    this.socket.on('connect_error', (error) => {
-      console.log('Socket.IO Connection Error:', error);
-    });
-    
-    console.log("Success");
   }
 
   joinRoom(data: any): void {
     this.socket.emit('join', data);
-    console.log("Join room"+ data);
+    //console.log("Join: "+data.room);
   }
 
   sendMessage(data: any): void {
     this.socket.emit('message', data);
-    console.log("Message"+ data);
+    //console.log("Message: "+ data.message);
   }
 
-  getMessage(roomId: string): Observable<{user: string, message: string}> {
-    return new Observable<{user: string, message: string}>(observer => {
+  getMessage(): Observable<any> {
+    return new Observable<{message: string}>(observer => {
       this.socket.on('new message', (data) => {
-        if (data.roomId === roomId) {
-          observer.next(data);
-        }
+        observer.next(data);
       });
-
+  
       return () => {
         this.socket.disconnect();
       }
-    });
+    }).pipe(
+      catchError(error => {
+        console.error(error);
+        return of(null);
+      })
+    );
   }
-
-
+  
   getStorage(roomId: string): Observable<any> {
-    return this.http.get<any>(this.messagesUrl).pipe(
+    const options = { params: { roomId } };
+    //console.log(roomId);
+    return this.http.get<any>(this.messagesUrl, options).pipe(
       catchError(this.handleError)
     );
   }
@@ -71,11 +66,16 @@ export class ChatService {
       'Something bad happened; please try again later.');
   };
 
-  setStorage(roomId: any, message: any) {
+  setStorage(roomId: any, sender:any, receiver:any, sender_id: any, receiver_id: any, message: any) {
     const body = {
       roomId: roomId,
+      sendername: sender,
+      receivername: receiver,
+      sender_id: sender_id,
+      receiver_id: receiver_id,
       message: message
     };
+    //console.log(roomId + " message:"+ message);
     this.http.post(this.messagesUrl, body).subscribe(
       response => {
         console.log('Data saved successfully:', response);
@@ -84,6 +84,8 @@ export class ChatService {
         console.log('Error saving data:', error);
       }
     );
+
+    this.socket.emit('new message', message);
   }
   
 }

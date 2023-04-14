@@ -18,6 +18,7 @@ export class SavedListComponent implements OnInit {
     this.http.get<any>('http://localhost:3000/get-save-user').subscribe(
       (response) => {
         this.savedUsers = response.savedUsers;
+        console.log(this.savedUsers);
       },
       (error) => {
         console.error(error);

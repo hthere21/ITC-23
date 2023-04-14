@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 
@@ -11,8 +11,10 @@ import { AuthService } from '../auth.service';
 export class UserPageComponent implements OnInit {
   user: any;
   loading: boolean = true;
+  userInfo: any;
+  userId: any;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private authService: AuthService) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.loading = true;
@@ -37,5 +39,34 @@ export class UserPageComponent implements OnInit {
         // handle error case
       }
     );
+  }
+
+  chat() {
+    this.http.get<any[]>('http://localhost:3000/get-user', {}).subscribe(
+      (data) => {
+        this.userInfo = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    
+    this.http.get<any[]>('http://localhost:3000/chatting', {}).subscribe(
+      (data) => {
+        this.userId = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    setTimeout(() => {
+    if(this.userId != null)
+    {
+      this.router.navigate(['/chat', this.userInfo.name, this.userId.name, this.userInfo._id, this.userId._id]);
+    }
+    else{
+      alert("Chat history is empty. Please chat with someone first!");
+    }
+    }, 300); 
   }
 }

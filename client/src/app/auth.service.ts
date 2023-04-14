@@ -15,7 +15,6 @@ export class AuthService {
   checkAuthentication(): Observable<boolean> {
     const isAuthenticated$ = this.http.get<boolean>('http://localhost:3000/login-check', {}).pipe(
       tap((data) => {
-        console.log(data);
         this.logIn = data as boolean;
       }),
       map((data) => Boolean(data)),

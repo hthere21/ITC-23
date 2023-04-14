@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,8 @@ import { UpdateInfoComponent } from './update-info/update-info.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SavedListComponent } from './saved-list/saved-list.component';
 import { ChatComponent } from './chat/chat.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { FaqComponent } from './faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,8 @@ import { ChatComponent } from './chat/chat.component';
     UpdateInfoComponent,
     SavedListComponent,
     ChatComponent,
+    AboutUsComponent,
+    FaqComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +38,7 @@ import { ChatComponent } from './chat/chat.component';
     HttpClientModule,
     NoopAnimationsModule,
     MatIconModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

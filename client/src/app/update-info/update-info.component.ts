@@ -11,6 +11,8 @@ import { AuthService } from '../auth.service';
 export class UpdateInfoComponent {
   errorMessage: string = "";
   continue: Boolean = false;
+  username ='';
+  rentingZipcode = '';
   gender = '';
   university = '';
   major = '';
@@ -40,6 +42,8 @@ export class UpdateInfoComponent {
 
   update() {
     let bodyData = {
+      "name": this.username,
+      "zipcode": this.rentingZipcode,
       "gender": this.gender,
       "university": this.university,
       "major": this.major,

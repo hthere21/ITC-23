@@ -1,14 +1,15 @@
 const { MongoClient } = require('mongodb');
 
 //verify user in database function
-module.exports.verifyUser = async (name, password) => {
-    const client = await MongoClient.connect('mongodb://localhost:27017');
-    const db = client.db('ITC-data');
-    const usersCollection = db.collection('users');
+module.exports.verifyUser = async (email, password) => {
+  const client = await MongoClient.connect('mongodb+srv://hai215:12345@cluster0.rplyggb.mongodb.net/ITC-data?retryWrites=true&w=majority');
+  const db = client.db('ITC-data');
+  const usersCollection = db.collection('users');
   
-    const user = await usersCollection.findOne({ name: name });
+  
+    const user = await usersCollection.findOne({ email: email });
     if (!user) {
-      throw new Error('User not found');
+      throw new Error('Email not found');
     }
   
     if (user.password !== password) {

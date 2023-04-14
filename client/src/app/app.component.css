@@ -1,1 +1,15 @@
-
+html, body {
+    height: 100%;
+  }
+  
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  footer {
+    margin-top: auto;
+  }
+  
+  

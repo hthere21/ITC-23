@@ -2,11 +2,19 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    name: {
+    email: {
       type: String,
       required: true
     },
     password: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    zipcode: {
       type: String,
       required: true
     },
@@ -18,9 +26,6 @@ var userSchema = new Schema({
       type: String
     },
     major: {
-      type: String
-    },
-    picture: {
       type: String
     },
     bio: {
@@ -83,6 +88,10 @@ var userSchema = new Schema({
       enum: ['single', 'double', 'triple', 'quadruple']
     },
     savedList: {
+      type: [Schema.Types.ObjectId],
+      ref: 'user'
+    },
+    chatHistory : {
       type: [Schema.Types.ObjectId],
       ref: 'user'
     }

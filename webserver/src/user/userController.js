@@ -4,53 +4,73 @@ var userModel = require('./userModel');
 var userService = require('./userService');
 var userInfo = "";
 let isLoggedIn = false;
-const { ObjectId } = require('mongodb');
 
- 
+async function checkName(req,res) {
+  try {
+    const name = req.query.username;
+    console.log(name);
+    const users = await userModel.find({name: name});
+
+    if (users.length > 0) {
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
+}
+
 const createUserControllerFn = async (req, res) => {
   try {
-    const body = req.body
-    const userModelData = new userModel()
-    userModelData.name = body.name
-    userModelData.password = body.password
-    userModelData.gender = body.gender
-    userModelData.university = body.university
-    userModelData.major = body.major
-    userModelData.bio = body.bio
-    userModelData.age = body.age
-    userModelData.sleep = body.sleep
-    userModelData.guests = body.guests
-    userModelData.smoking = body.smoking
-    userModelData.pets = body.pets
-    userModelData.lgbt = body.lgbt
-    userModelData.couples = body.couples
-    userModelData.budget = body.budget
-    userModelData.move_in_date = body.move_in_date
-    userModelData.min_length = body.min_length
-    userModelData.max_length = body.max_length
-    userModelData.amenities = {
-      wifi: body.amenities.wifi,
-      kitchen: body.amenities.kitchen,
-      parking: body.amenities.parking
-    }
-    userModelData.size = body.size
-    userModelData.furnished = body.furnished
-    userModelData.occupancy = body.occupancy
+    const body = req.body;
+    const userModelData = new userModel();
 
-    await userModelData.save()
-    
-    res.status(201).json({ success: true, message: 'User created successfully', user: userModelData });
+      userModelData.email = body.email;
+      userModelData.zipcode = body.zipcode;
+      userModelData.name = body.name;
+      userModelData.password = body.password;
+      userModelData.gender = body.gender;
+      userModelData.university = body.university;
+      userModelData.major = body.major;
+      userModelData.bio = body.bio;
+      userModelData.age = body.age;
+      userModelData.sleep = body.sleep;
+      userModelData.guests = body.guests;
+      userModelData.smoking = body.smoking;
+      userModelData.pets = body.pets;
+      userModelData.lgbt = body.lgbt;
+      userModelData.couples = body.couples;
+      userModelData.budget = body.budget;
+      userModelData.move_in_date = body.move_in_date;
+      userModelData.min_length = body.min_length;
+      userModelData.max_length = body.max_length;
+      userModelData.amenities = {
+        wifi: body.amenities.wifi,
+        kitchen: body.amenities.kitchen,
+        parking: body.amenities.parking
+      }
+      userModelData.size = body.size;
+      userModelData.furnished = body.furnished;
+      userModelData.occupancy = body.occupancy;
+      userModelData.chatHistory = [];
+
+      // Save user document
+      userModelData.save()
+        .then(user => res.send(user))
+        .catch(err => res.status(500).send(err));
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
 
-
 const loginUserControllerFn = async (req, res) => {
   try {
-    const { name, password } = req.body;
-    const user = await userService.verifyUser(name, password);
+    const { email, password } = req.body;
+    const user = await userService.verifyUser(email, password);
     userInfo = user;
     isLoggedIn = true;
     res.send({ status: true, message: 'Login successful', user });
@@ -87,8 +107,9 @@ const getAllUsersControllerFn = async (req, res) => {
 };
 
 
-const searchUser = async (req, res) => {
-  const { page = 1, limit = 10, search = '' } = req.query;
+async function searchUser (req, res) {
+  const { search } = req.query;
+  console.log(req.query.search);
   try {
     const searchTerm = search;
     // Use a regular expression to search for matches in name, major, or university
@@ -100,6 +121,7 @@ const searchUser = async (req, res) => {
         { bio: { $regex: searchTerm, $options: 'i' } }
       ]
     });
+    console.log(users);
     res.json(users);
   } catch (err) {
     console.error(err);
@@ -107,6 +129,52 @@ const searchUser = async (req, res) => {
   }
 };
 
+const filterUser = async (req, res) => {
+  const {
+    zipcode,
+    gender,
+    age,
+    sleep,
+    guests,
+    smoking,
+    pets,
+    budget,
+    move_in_date,
+    amenities,
+    size,
+  } = req.query;
+  console.log(gender)
+  console.log(age)
+  console.log(pets)
+  console.log(zipcode)
+  
+  try {
+    const filters = {};
+    if (zipcode !== undefined && zipcode !== '' && zipcode!== 'null') filters.zipcode = zipcode;
+    if (gender !== undefined && gender !== '' && gender !== 'null') filters.gender = gender;
+    if (age !== undefined && age !== ''&& age !== 'null') filters.age = age;
+    if (sleep !== undefined && sleep !== '' && sleep !== 'null') filters.sleep = sleep;
+    if (guests !== undefined && guests !== '' && guests !== 'null') filters.guests = guests;
+    if (smoking !== undefined && smoking !== '' && smoking !== 'null') filters.smoking = smoking;
+    if (pets !== undefined && pets !== '' && pets !== 'null') filters.pets = pets;
+    if (budget !== undefined && budget !== '' && budget !== 'null') filters.budget = budget;
+    if (move_in_date !== undefined && move_in_date !== ''&& move_in_date !== 'null') filters.move_in_date = move_in_date;
+    if (amenities !== undefined &&   amenities.wifi || amenities.kitchen || amenities.parking) {
+      filters['amenities.wifi'] = amenities.includes('wifi');
+      filters['amenities.kitchen'] = amenities.includes('kitchen');
+      filters['amenities.parking'] = amenities.includes('parking');
+    }
+    if (size !== undefined && size !== '' && size !== 'null') filters.size = size;
+    
+    console.log(filters);
+    const users = await userModel.find({ _id: { $ne: userInfo._id }, ...filters });
+    console.log(users);
+    res.json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
 
 const getUser = async (req, res) => {
   try {
@@ -125,7 +193,14 @@ const getUser = async (req, res) => {
 const updateUserControllerFn = async (req, res) => {
   try {
     const userId = userInfo._id; // retrieve the user id from the request params
-    const updateData = req.body; // retrieve the update data from the request body
+    const updateData = {};
+
+    // Retrieve the properties to update from the request body
+    ["name","zipcode","gender", "university", "major", "picture", "bio", "age", "sleep", "guests", "smoking", "pets", "lgbt", "couples", "budget", "move_in_date", "min_length", "max_length", "amenities", "size", "furnished", "occupancy"].forEach(key => {
+      if (req.body[key]) {
+        updateData[key] = req.body[key];
+      }
+    });
 
     // use the `findByIdAndUpdate` method of the userModel to update the user data
     const updatedUser = await userModel.findByIdAndUpdate(userId, updateData, { new: true });
@@ -142,6 +217,7 @@ const updateUserControllerFn = async (req, res) => {
   }
 };
 
+
 const isLogIn = async (req, res) => {
   try {
     res.send(isLoggedIn);
@@ -157,7 +233,6 @@ const saveUserControllerFn = async (req, res) => {
 
     // Retrieve the user to be saved
     const userToSave = await userModel.findById(userId);
-    console.log(userToSave);
 
     // Check if the user is null or if the logged-in user has already saved the user
     if (!userToSave || userInfo.savedList.includes(loggedInUserId)) {
@@ -221,7 +296,31 @@ const removeSavedUsers = async (req, res) => {
   }
 };
 
+async function getAllChatHistory(req, res) {
+  try {
+    const userId = userInfo._id;
+    const user = (await userModel.findById(userId)).chatHistory;
+    const savedUsers = await Promise.all(user.map((id) => userModel.findById(id)));
 
-module.exports = { createUserControllerFn ,updateUserControllerFn ,loginUserControllerFn, getAllUsersControllerFn, searchUser, getUser, isLogIn, saveUserControllerFn, getSavedUsers, logoutUserControllerFn, removeSavedUsers}
+    res.send(savedUsers);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
+}
+
+async function getFirstUserId(req,res) {
+  const userId = userInfo._id;
+  const userChatHistory = (await userModel.findById(userId)).chatHistory;
+  if (userChatHistory && userChatHistory.length > 0) {
+    const userId = userChatHistory[0];
+    const user = await userModel.findById(userId);
+    res.send(user)
+  } else {
+    return null;
+  }
+}
+
+module.exports = { checkName, createUserControllerFn ,updateUserControllerFn ,loginUserControllerFn, getAllUsersControllerFn, searchUser, getUser, isLogIn, saveUserControllerFn, getSavedUsers, logoutUserControllerFn, removeSavedUsers, getAllChatHistory, filterUser, getFirstUserId}
 
 

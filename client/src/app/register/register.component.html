@@ -32,12 +32,13 @@
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input
-                        type="text"
-                        id="username"
+                        type="email"
+                        id="email"
                         class="form-control"
-                        name="username"
-                        [(ngModel)]="username"
-                        placeholder="Your Name"
+                        name="email"
+                        [(ngModel)]="email"
+                        placeholder="Your Email"
+                        required
                       />
                     </div>
                   </div>
@@ -120,6 +121,32 @@
       <div class="row">
         <div class="col">
           <div class="form-group">
+            <label>Name:</label>
+            <input
+              type="text"
+              name="name"
+              class="form-control"
+              [(ngModel)]="username"
+              placeholder="Your Name"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label>Looking to rent in zipcode:</label>
+            <input
+              type="number"
+              name="rentingZipcode"
+              class="form-control"
+              [(ngModel)]="rentingZipcode"
+              placeholder="zipcode"
+            />
+          </div>
+        </div>
+      </div>      
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
             <label>Gender:</label>
             <select name="gender" class="form-control" [(ngModel)]="gender">
               <option value="male">Male</option>
@@ -175,7 +202,6 @@
           [(ngModel)]="picture"
         />
       </div>
-
       <div class="form-group">
         <label>Short Bio:</label>
         <textarea name="bio" class="form-control" [(ngModel)]="bio"></textarea>
@@ -504,7 +530,6 @@
               </div>
             </div>
           </div>
-          <br />
           <div class="container">
                 <button type="submit" class="btn btn-secondary btn-lg" style="margin-right: 1rem;" (click)="back()">Back</button>
                 <button type="submit" class="btn btn-primary btn-lg" (click)="register()">Submit</button>

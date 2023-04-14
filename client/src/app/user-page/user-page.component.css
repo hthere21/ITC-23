@@ -1,7 +1,8 @@
 .container {
     border: 2px solid black;
     border-radius: 10px;
-    margin-top: 5rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
   }
   
   .sidebar {
@@ -68,4 +69,6 @@
       border-top: 2px solid black;
     }
   }
+  
+
   
