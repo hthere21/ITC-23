@@ -30,7 +30,7 @@ export class LoginComponent {
             this.router.navigate(['/home']);
             setTimeout(() => {
               window.location.reload();
-            }, 20); // reload after 1 second
+            }, 300); // reload after 1 second
         } else {
           console.log(data.status)
           this.errorMessage = data.message;

@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   noUsersFound: boolean = false;
 
   filterForm: FormGroup;
-  //LOGO = require("./assets/user.jpg");
+  budgetValue: number = 5000;
   
   constructor(private http: HttpClient, private authService: AuthService, private router: Router, private formBuilder: FormBuilder) {
     this.users = []; 
@@ -166,7 +166,7 @@ export class HomeComponent implements OnInit {
       );
     }
   }
-
+  
 
   onSubmit() {
     const filterData = this.filterForm?.value;
@@ -202,6 +202,7 @@ export class HomeComponent implements OnInit {
     this.http.get('http://localhost:3000/user')
       .subscribe((data) => {
         // Handle response data
+        this.budgetValue = 5000;
         this.users = data;
         this.totalUsers = this.users.length;
         this.totalPages = Math.ceil(this.users.length / this.pageSize);
@@ -237,10 +238,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/chat', userInfo.name, userId.name, userInfo._id, userId._id]);
   }
 
-  logout() {
-    this.authService.logout().subscribe(
-      (success) => {},
-      (error) => {}
-    );
+  setBudgetValue(event: any) {
+    this.budgetValue = event.target.value;
   }
 }

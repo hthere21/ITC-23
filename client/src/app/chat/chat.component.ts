@@ -40,8 +40,9 @@ export class ChatComponent implements OnInit {
   this.sender_id = this.route.snapshot.paramMap.get('userInfo._id') ?? '';
   this.roomId = [this.receiver_id, this.sender_id].sort().join(separator);
 
-    // this.messageArray.push(data);
+
     this.join(this.sender, this.roomId);
+    
     this.chatService.getStorage(this.roomId).subscribe(storageArray => { 
       if (storageArray.length !== 0)
       {
@@ -65,9 +66,7 @@ export class ChatComponent implements OnInit {
           });
         }, 200);
       }
-
-      setTimeout(() => {this.scrollToBottom();        }, 200);
-
+      setTimeout(() => {this.scrollToBottom();}, 200);
     });
 
     this.http.get<any[]>(`http://localhost:3000/chat-history/${this.sender_id}`).subscribe(
@@ -121,7 +120,7 @@ ngAfterViewInit(): void {
           this.storageArray = storageArray;
           this.messageArray = this.storageArray[0].message;
         });
-      }, 200);
+      }, 500);
     }
   });
 

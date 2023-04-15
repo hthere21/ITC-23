@@ -65,11 +65,11 @@
               <option value="pets-allowed">Pets allowed</option>
               <option value="no-pets">No pets</option>
             </select>
-          </div>
-          <div class="mb-1">
-            <label class="form-label">Budget:</label>
-            <input type="text" class="form-control" formControlName="budget"/>
-          </div>
+          </div>     
+          <div class="mb-3">
+            <label for="budgetRange" class="form-label">Budget: ${{ budgetValue }}</label>
+            <input formControlName="budget" type="range" class="form-range" id="budgetRange" name="budget" min="0" max="10000" value="0" (input)="setBudgetValue($event)" step="100">
+          </div>          
           <div class="mb-1">
             <label class="form-label">Move-in date:</label>
             <input type="date" class="form-control" formControlName="move_in_date"/>

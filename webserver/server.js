@@ -33,6 +33,17 @@ app.use(cors());
 app.use(routes);
 
 //Using socket.io in backend
+// io.on('connection', (socket) => {
+//   socket.on('join', (data) => {
+//       socket.join(data.room);
+//       socket.broadcast.to(data.room).emit('user joined');
+//   });
+
+//   socket.on('message', (data) => {
+//       io.in(data.room).emit('new message', data);
+//   });
+// });
+
 io.on('connection', (socket) => {
   socket.on('join', (data) => {
       socket.join(data.room);
@@ -40,15 +51,13 @@ io.on('connection', (socket) => {
   });
 
   socket.on('message', (data) => {
-      io.in(data.room).emit('new message', data);
-      console.log("message "+data);
+      io.emit('new message', data);
   });
 });
+
 
 server.listen(port, () => {
   console.log(`started on port: ${port}`);
 });
 
-
-//Using multer
 

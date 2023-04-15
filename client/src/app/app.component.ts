@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
         console.log(error);
       }
     );
-    
+
     this.http.get<any[]>('http://localhost:3000/chatting', {}).subscribe(
       (data) => {
         this.userId = data;
@@ -59,6 +59,6 @@ export class AppComponent implements OnInit {
     else{
       alert("Chat history is empty. Please chat with someone first!");
     }
-    }, 300); 
+    }, 500); 
   }
 }
