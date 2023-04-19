@@ -31,3 +31,5 @@ The app will be divided into 7 main pages: Home page, Browse page, About us page
 
 - FrontEnd: Angular, Bootstrap, HTML, CSS, Typescript, Javascript
 - BackEnd: Node.js, Express.js, MongoDB
+
+Project Presentation: https://docs.google.com/presentation/d/1HVDswA78s8Ola_1XhF0ZFHWx-1TorueZ091eMcOyPUk/edit?usp=sharing
