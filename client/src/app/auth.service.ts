@@ -12,24 +12,20 @@ export class AuthService {
   constructor(public http: HttpClient) { 
   }  
 
-  checkAuthentication(): Observable<boolean> {
-    const isAuthenticated$ = this.http.get<boolean>('http://localhost:3000/login-check', {}).pipe(
-      tap((data) => {
-        this.logIn = data as boolean;
-      }),
-      map((data) => Boolean(data)),
-      defaultIfEmpty(false)
-    );
-    return isAuthenticated$;
-  }
   
-  isAuthenticated(): Observable<boolean> {
-    return this.checkAuthentication().pipe(
-      map((data) => Boolean(data))
-    );
+  isAuthenticated(): boolean {
+    if(localStorage.getItem('name'))
+    {
+      return true;
+    }
+    else
+    {
+    return false;
+    }
   }
 
   logout(): Observable<boolean> {
+    localStorage.removeItem("name");
     return this.http.post('http://localhost:3000/logout', {}).pipe(
       tap(() => {
         console.log("Logout successful");

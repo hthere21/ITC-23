@@ -227,6 +227,7 @@ export class HomeComponent implements OnInit {
     this.http.post<any>('http://localhost:3000/save-user', { userId }).subscribe(
       (response) => {
         console.log(response);
+        alert("Saved user sucessfully")
       },
       (error) => {
         console.error(error);

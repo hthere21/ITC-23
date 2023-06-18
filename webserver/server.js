@@ -32,17 +32,6 @@ app.use(express.json());
 app.use(cors());
 app.use(routes);
 
-//Using socket.io in backend
-// io.on('connection', (socket) => {
-//   socket.on('join', (data) => {
-//       socket.join(data.room);
-//       socket.broadcast.to(data.room).emit('user joined');
-//   });
-
-//   socket.on('message', (data) => {
-//       io.in(data.room).emit('new message', data);
-//   });
-// });
 
 io.on('connection', (socket) => {
   socket.on('join', (data) => {

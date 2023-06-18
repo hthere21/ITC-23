@@ -14,16 +14,12 @@ export class AppComponent implements OnInit {
   userId: any;
 
   constructor(private authService: AuthService, private http: HttpClient, private router: Router) {
-    this.authService.checkAuthentication().subscribe((isLoggedIn) => {
-      this.login = isLoggedIn;
-    });
+    this.login = this.authService.isAuthenticated();
   }
 
   ngOnInit() {
 
-    this.authService.checkAuthentication().subscribe(isAuthenticated => {
-      this.login = isAuthenticated;
-    });
+    this.login = this.authService.isAuthenticated();
   }
 
   logout() {

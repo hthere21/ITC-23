@@ -7,7 +7,7 @@ const router = express.Router();
 router.route('/check').get(userController.checkName);
 router.route('/user/login').post(userController.loginUserControllerFn);
 router.route('/logout').post(userController.logoutUserControllerFn);
-router.route('/login-check').get(userController.isLogIn);
+// router.route('/login-check').get(userController.isLogIn);
 router.route('/user/create').post(userController.createUserControllerFn);
 router.route('/user').get( userController.getAllUsersControllerFn);
 router.route('/search').get( userController.searchUser);

@@ -42,7 +42,7 @@ export class ChatComponent implements OnInit {
 
 
     this.join(this.sender, this.roomId);
-    
+
     this.chatService.getStorage(this.roomId).subscribe(storageArray => { 
       if (storageArray.length !== 0)
       {
@@ -180,7 +180,6 @@ sendMessage(): void {
   this.messageText =''
 
 }
-
 scrollToBottom(): void {
   try {
     this.chatWindow.nativeElement.scrollTop = this.chatWindow.nativeElement.scrollHeight;

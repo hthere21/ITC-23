@@ -73,7 +73,8 @@ const loginUserControllerFn = async (req, res) => {
     const user = await userService.verifyUser(email, password);
     userInfo = user;
     isLoggedIn = true;
-    res.send({ status: true, message: 'Login successful', user });
+    let name = userInfo.name
+    res.send({ status: true, message: 'Login successful', name });
   } catch (err) {
     console.error(err);
     res.send({ status: false, message: err.message });
@@ -218,13 +219,13 @@ const updateUserControllerFn = async (req, res) => {
 };
 
 
-const isLogIn = async (req, res) => {
-  try {
-    res.send(isLoggedIn);
-  } catch (err) {
-    res.send(false);
-  }
-};
+// const isLogIn = async (req, res) => {
+//   try {
+//     res.send(isLoggedIn);
+//   } catch (err) {
+//     res.send(false);
+//   }
+// };
 
 const saveUserControllerFn = async (req, res) => {
   try {
@@ -321,6 +322,6 @@ async function getFirstUserId(req,res) {
   }
 }
 
-module.exports = { checkName, createUserControllerFn ,updateUserControllerFn ,loginUserControllerFn, getAllUsersControllerFn, searchUser, getUser, isLogIn, saveUserControllerFn, getSavedUsers, logoutUserControllerFn, removeSavedUsers, getAllChatHistory, filterUser, getFirstUserId}
+module.exports = { checkName, createUserControllerFn ,updateUserControllerFn ,loginUserControllerFn, getAllUsersControllerFn, searchUser, getUser, saveUserControllerFn, getSavedUsers, logoutUserControllerFn, removeSavedUsers, getAllChatHistory, filterUser, getFirstUserId}
 
 

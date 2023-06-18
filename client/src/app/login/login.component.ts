@@ -28,6 +28,8 @@ export class LoginComponent {
         if (data.status) {
           // Redirect to home page or dashboard
             this.router.navigate(['/home']);
+            localStorage.setItem('name', data.name);
+        
             setTimeout(() => {
               window.location.reload();
             }, 300); // reload after 1 second
