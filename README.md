@@ -1,4 +1,5 @@
 # ITC-roommate-finder-2023
+[![My Skills](https://skillicons.dev/icons?i=angular,bootstrap,nodejs,expressjs,mongodb,figma)](https://skillicons.dev)
 
 **What is this app about?**
 
