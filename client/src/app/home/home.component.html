@@ -158,6 +158,7 @@
       <!-- Show user cards if loading is false -->
       <div>Hello</div>
       <app-user-recommendation></app-user-recommendation>
+      <mat-divider></mat-divider>
       <div *ngIf="!loading && !noUsersFound">
         <div class="hold">
           <div *ngFor="let user of pagedUsers" class="mb-2">

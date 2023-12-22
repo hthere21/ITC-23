@@ -94,12 +94,12 @@ const logoutUserControllerFn = async (req, res) => {
 
 const getAllUsersControllerFn = async (req, res) => {
   try {
-    const loggedInUserId = userInfo._id;
+    const loggedInUserId = userInfo ? userInfo._id : null;
     if (!loggedInUserId) {
       res.status(401).json({ message: "Unauthorized" });
       return;
     }
-    const users = await userModel.find({ _id: { $ne: loggedInUserId } }); // find all users except the logged-in user
+    const users = await userModel.find({ _id: { $ne: loggedInUserId } });
     res.status(200).json(users);
   } catch (err) {
     console.error(err);
@@ -269,14 +269,6 @@ const updateUserControllerFn = async (req, res) => {
   }
 };
 
-// const isLogIn = async (req, res) => {
-//   try {
-//     res.send(isLoggedIn);
-//   } catch (err) {
-//     res.send(false);
-//   }
-// };
-
 const saveUserControllerFn = async (req, res) => {
   try {
     const userId = req.body.userId;
@@ -391,25 +383,46 @@ async function getFirstUserId(req, res) {
   }
 }
 
-function suggestUsers(currentUser) {
-  // Get all users
-  const allUsers = getAllUsersControllerFn();
+const suggestUsers = async (req, res) => {
+  try {
+    // Assuming you can get the current user from the request object
+    const currentUser = userInfo;
 
-  // Calculate similarity scores based on location, university, major, and age
-  const usersWithSimilarity = allUsers.map((user) => {
-    const similarity = calculateSimilarity(currentUser, user);
-    return { user, similarity };
-  });
+    // Check if currentUser is undefined
+    if (!currentUser) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
 
-  // Sort users by similarity in descending order
-  const sortedUsers = usersWithSimilarity.sort(
-    (a, b) => b.similarity - a.similarity
-  );
+    // Get all users
+    const loggedInUserId = userInfo ? userInfo._id : null;
+    const allUsers = await userModel.find({ _id: { $ne: loggedInUserId } });
 
-  // Return the top 3 users
-  const top3Users = sortedUsers.slice(0, 3).map((user) => user.user);
-  return top3Users;
-}
+    // Check if there was an error in getAllUsersControllerFn
+    if (!allUsers || allUsers instanceof Error) {
+      return res.status(500).json({ error: "Error fetching users" });
+    }
+
+    // Calculate similarity scores based on location, university, major, and age
+    const usersWithSimilarity = allUsers.map((user) => {
+      const similarity = calculateSimilarity(currentUser, user);
+      return { user, similarity };
+    });
+
+    // Sort users by similarity in descending order
+    const sortedUsers = usersWithSimilarity.sort(
+      (a, b) => b.similarity - a.similarity
+    );
+
+    // Return the top 3 users
+    const top3Users = sortedUsers.slice(0, 3).map((user) => user.user);
+
+    res.json(top3Users);
+    console.log(top3Users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
 
 //Simple algorithm for calculating similarity
 function calculateSimilarity(user1, user2) {

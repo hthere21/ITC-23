@@ -18,6 +18,7 @@ import { ChatComponent } from './chat/chat.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { FaqComponent } from './faq/faq.component';
 import { UserRecommendationComponent } from './user-recommendation/user-recommendation.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { UserRecommendationComponent } from './user-recommendation/user-recommen
     NoopAnimationsModule,
     MatIconModule,
     ReactiveFormsModule,
+    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
