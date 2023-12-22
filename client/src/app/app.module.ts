@@ -17,8 +17,6 @@ import { SavedListComponent } from './saved-list/saved-list.component';
 import { ChatComponent } from './chat/chat.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { FaqComponent } from './faq/faq.component';
-import { UserRecommendationComponent } from './user-recommendation/user-recommendation.component';
-import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -32,7 +30,6 @@ import { MatDividerModule } from '@angular/material/divider';
     ChatComponent,
     AboutUsComponent,
     FaqComponent,
-    UserRecommendationComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +39,6 @@ import { MatDividerModule } from '@angular/material/divider';
     NoopAnimationsModule,
     MatIconModule,
     ReactiveFormsModule,
-    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
