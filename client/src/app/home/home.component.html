@@ -1,180 +1,260 @@
-  <!-- Search bar -->
-  <div class="row height d-flex justify-content-center align-items-center">
-    <div class="col-md-8">
-      <div class="search">
-        <mat-icon class="fa fa-search">search</mat-icon>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="searchTerm"
-          placeholder=""
-          (keydown.enter)="search()"
-        />
-        <button class="btn btn-primary" (click)="search()">Search</button>
-      </div>
+<!-- Search bar -->
+<div class="row height d-flex justify-content-center align-items-center">
+  <div class="col-md-8">
+    <div class="search">
+      <mat-icon class="fa fa-search">search</mat-icon>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="searchTerm"
+        placeholder=""
+        (keydown.enter)="search()"
+      />
+      <button class="btn btn-primary" (click)="search()">Search</button>
     </div>
   </div>
-  <div class="box">
-    <div class="row">
-      <div class="col-md-2">
-        <form (ngSubmit)="onSubmit()" [formGroup]="filterForm" name="filterForm" class="small">
-          <h2>Filters</h2>
-          <hr>
-          <div class="mb-1">
-            <label class="form-label">Zipcode:</label>
-            <input type="number" class="form-control" formControlName="zipcode"/>
-          </div>
-          <div class="mb-1">
-            <label class="form-label">Gender:</label>
-            <select class="form-select" formControlName="gender">
-              <option value="">Any</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="nonbinary">Non-binary</option>
-            </select>
-          </div>
-          <div class="mb-1">
-            <label class="form-label">Age:</label>
-            <input type="number" class="form-control" formControlName="age"/>
-          </div>
-          <div class="mb-1">
-            <label class="form-label">Sleep:</label>
-            <select class="form-select" formControlName="sleep">
-              <option value="">Any</option>
-              <option value="early-bird">Early bird</option>
-              <option value="owl-night">Night owl</option>
-            </select>
-          </div>
-          <div class="mb-1">
-            <label class="form-label">Guests:</label>
-            <select class="form-select" formControlName="guests">
-              <option value="guests-allowed">Guests allowed</option>
-              <option value="no-guests">No guests</option>
-            </select>
-          </div>
-          <div class="mb-1">
-            <label class="form-label">Smoking:</label>
-            <select class="form-select" formControlName="smoking">
-              <option value="smoking-allowed">Smoking allowed</option>
-              <option value="no-smoking">No smoking</option>
-            </select>
-          </div>
-          <div class="mb-1">
-            <label class="form-label">Pets:</label>
-            <select class="form-select" formControlName="pets">
-              <option value="pets-allowed">Pets allowed</option>
-              <option value="no-pets">No pets</option>
-            </select>
-          </div>     
-          <div class="mb-3">
-            <label for="budgetRange" class="form-label">Budget: ${{ budgetValue }}</label>
-            <input formControlName="budget" type="range" class="form-range" id="budgetRange" name="budget" min="0" max="10000" value="0" (input)="setBudgetValue($event)" step="100">
-          </div>          
-          <div class="mb-1">
-            <label class="form-label">Move-in date:</label>
-            <input type="date" class="form-control" formControlName="move_in_date"/>
-          </div>
-          <div class="mb-1">
-            <label class="form-label">Amenities:</label>
-            <div formGroupName="amenities">
-              <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" formControlName="wifi"/>
-                <label class="form-check-label">WiFi</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" formControlName="kitchen"/>
-                <label class="form-check-label">Kitchen</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" formControlName="parking"/>
-                <label class="form-check-label">Parking</label>
-              </div>
-            </div>
-          </div>
-          <div class="mb-1">
-            <label class="form-label">Size:</label>
-            <select
-        
-        class="form-select" formControlName="size">
-        <option value="">Any</option>
-        <option value="single-room">Single Room</option>
-        <option value="double-room">Double Room</option>
-        <option value="studio">Studio</option>
-        <option value="apartment">Apartment</option>
-        </select>
-        
-          </div>
-          <hr>
-          <div>
-            <button type="button" class="btn btn-primary m-2" (click)="resetFilter()">Reset</button>
-            <button type="submit" class="btn btn-danger m-2">Apply filters</button>
-          </div>          
-        </form>
-  </div>
-  <div class="col-md-10">
-  <!-- Show spinner if loading is true -->
-  <div *ngIf="loading" class="spinner-container">
-    <div class="spinner"></div>
-  </div>
-  <!-- Show user cards if loading is false -->
-  <div *ngIf="!loading && !noUsersFound">
-    <div class="hold">
-      <div *ngFor="let user of pagedUsers" class="mb-2">
-        <div class="card">
-          <div class="row">
-            <div class="col-md-5">
-              <img src="assets/{{ user.gender }}.jpg" class="img-fluid" alt="Avatar"
-                style="width: 90%; height: 20rem; padding: 0.1rem; border-radius: 1rem;" />
-            </div>
-            <div class="col-md-7">
-              <div class="card-body">
-                <div class="d-flex align-items-center">
-                  <h2 class="card-title mb-0">{{ user.name }}:</h2>
-                  <h4 class="ms-3 mb-0">{{ user.gender }}, {{ user.age }} years old</h4>
-                </div>                               
-                <h3 class="card-text mb-1">Looking to rent in area: {{ user.zipcode }}</h3>
-                <p class="card-text">Bio: {{ user.bio }}</p>
-                <p class="card-text">Major: {{ user.major }}</p>
-                <p class="card-text">University: {{ user.university }}</p>
-                <p class="card-text">Type: <strong>{{ user.sleep | uppercase }}</strong></p>
-                <p class="card-text">Budget: ${{ user.budget }}</p>
-                <p class="card-text">Move-in date: {{ user.move_in_date | date:'MMM d, y' }}</p>
-                <button class="btn btn-primary me-2" (click)="saveUser(user._id)">Save</button>
-                <button class="btn btn-primary" (click)="startChat(userInfo, user)">Chat</button>
-              </div>
-            </div>
-          </div>
-        </div>        
-      </div>
-    </div>
-  </div>
-  <br />
-  <div class="text-center m-2" *ngIf="!loading && users.length === 0 && noUsersFound">
-    No users match your search.
-  </div>
-  <nav aria-label="...">
-    <ul class="pagination justify-content-center">
-      <li class="page-item" [class.disabled]="currentPage == 1">
-        <a
-          class="page-link"
-          (click)="onPrev()"
-          tabindex="-1"
-          aria-disabled="true"
-          >Previous</a
-        >
-      </li>
-      <li
-        class="page-item"
-        *ngFor="let page of pages"
-        [class.active]="currentPage == page"
+</div>
+<div class="box">
+  <div class="row">
+    <div class="col-md-2">
+      <form
+        (ngSubmit)="onSubmit()"
+        [formGroup]="filterForm"
+        name="filterForm"
+        class="small"
       >
-        <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
-      </li>
-      <li class="page-item" [class.disabled]="currentPage == totalPages">
-        <a class="page-link" (click)="onNext()">Next</a>
-      </li>
-    </ul>
-  </nav>
-
-
-
+        <h2>Filters</h2>
+        <hr />
+        <div class="mb-1">
+          <label class="form-label">Zipcode:</label>
+          <input type="number" class="form-control" formControlName="zipcode" />
+        </div>
+        <div class="mb-1">
+          <label class="form-label">Gender:</label>
+          <select class="form-select" formControlName="gender">
+            <option value="">Any</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="nonbinary">Non-binary</option>
+          </select>
+        </div>
+        <div class="mb-1">
+          <label class="form-label">Age:</label>
+          <input type="number" class="form-control" formControlName="age" />
+        </div>
+        <div class="mb-1">
+          <label class="form-label">Sleep:</label>
+          <select class="form-select" formControlName="sleep">
+            <option value="">Any</option>
+            <option value="early-bird">Early bird</option>
+            <option value="owl-night">Night owl</option>
+          </select>
+        </div>
+        <div class="mb-1">
+          <label class="form-label">Guests:</label>
+          <select class="form-select" formControlName="guests">
+            <option value="guests-allowed">Guests allowed</option>
+            <option value="no-guests">No guests</option>
+          </select>
+        </div>
+        <div class="mb-1">
+          <label class="form-label">Smoking:</label>
+          <select class="form-select" formControlName="smoking">
+            <option value="smoking-allowed">Smoking allowed</option>
+            <option value="no-smoking">No smoking</option>
+          </select>
+        </div>
+        <div class="mb-1">
+          <label class="form-label">Pets:</label>
+          <select class="form-select" formControlName="pets">
+            <option value="pets-allowed">Pets allowed</option>
+            <option value="no-pets">No pets</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="budgetRange" class="form-label"
+            >Budget: ${{ budgetValue }}</label
+          >
+          <input
+            formControlName="budget"
+            type="range"
+            class="form-range"
+            id="budgetRange"
+            name="budget"
+            min="0"
+            max="10000"
+            value="0"
+            (input)="setBudgetValue($event)"
+            step="100"
+          />
+        </div>
+        <div class="mb-1">
+          <label class="form-label">Move-in date:</label>
+          <input
+            type="date"
+            class="form-control"
+            formControlName="move_in_date"
+          />
+        </div>
+        <div class="mb-1">
+          <label class="form-label">Amenities:</label>
+          <div formGroupName="amenities">
+            <div class="form-check form-check-inline">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                formControlName="wifi"
+              />
+              <label class="form-check-label">WiFi</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                formControlName="kitchen"
+              />
+              <label class="form-check-label">Kitchen</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                formControlName="parking"
+              />
+              <label class="form-check-label">Parking</label>
+            </div>
+          </div>
+        </div>
+        <div class="mb-1">
+          <label class="form-label">Size:</label>
+          <select class="form-select" formControlName="size">
+            <option value="">Any</option>
+            <option value="single-room">Single Room</option>
+            <option value="double-room">Double Room</option>
+            <option value="studio">Studio</option>
+            <option value="apartment">Apartment</option>
+          </select>
+        </div>
+        <hr />
+        <div>
+          <button
+            type="button"
+            class="btn btn-primary m-2"
+            (click)="resetFilter()"
+          >
+            Reset
+          </button>
+          <button type="submit" class="btn btn-danger m-2">
+            Apply filters
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-10">
+      <!-- Show spinner if loading is true -->
+      <div *ngIf="loading" class="spinner-container">
+        <div class="spinner"></div>
+      </div>
+      <!-- Show user cards if loading is false -->
+      <app-user-recommendation></app-user-recommendation>
+      <hr
+        class="hr"
+        style="
+          border: solid grey;
+          border-width: 1px 0 0;
+          clear: both;
+          margin: 22px 0 21px;
+          height: 0;
+        "
+      />
+      <div *ngIf="!loading && !noUsersFound">
+        <div class="hold">
+          <div *ngFor="let user of pagedUsers" class="mb-2">
+            <div class="card">
+              <div class="row">
+                <div class="col-md-5">
+                  <img
+                    src="assets/{{ user.gender }}.jpg"
+                    class="img-fluid"
+                    alt="Avatar"
+                    style="
+                      width: 90%;
+                      height: 20rem;
+                      padding: 0.1rem;
+                      border-radius: 1rem;
+                    "
+                  />
+                </div>
+                <div class="col-md-7">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center">
+                      <h2 class="card-title mb-0">{{ user.name }}</h2>
+                      <h4 class="ms-3 mb-0">
+                        {{ user.gender }}, {{ user.age }} years old
+                      </h4>
+                    </div>
+                    <h3 class="card-text mb-1">
+                      Looking to rent in area: {{ user.zipcode }}
+                    </h3>
+                    <p class="card-text">Bio: {{ user.bio }}</p>
+                    <p class="card-text">Major: {{ user.major }}</p>
+                    <p class="card-text">University: {{ user.university }}</p>
+                    <p class="card-text">
+                      Type: <strong>{{ user.sleep | uppercase }}</strong>
+                    </p>
+                    <p class="card-text">Budget: ${{ user.budget }}</p>
+                    <p class="card-text">
+                      Move-in date: {{ user.move_in_date | date : "MMM d, y" }}
+                    </p>
+                    <button
+                      class="btn btn-primary me-2"
+                      (click)="saveUser(user._id)"
+                    >
+                      Save
+                    </button>
+                    <button
+                      class="btn btn-primary"
+                      (click)="startChat(userInfo, user)"
+                    >
+                      Chat
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div
+        class="text-center m-2"
+        *ngIf="!loading && users.length === 0 && noUsersFound"
+      >
+        No users match your search.
+      </div>
+      <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="currentPage == 1">
+            <a
+              class="page-link"
+              (click)="onPrev()"
+              tabindex="-1"
+              aria-disabled="true"
+              >Previous</a
+            >
+          </li>
+          <li
+            class="page-item"
+            *ngFor="let page of pages"
+            [class.active]="currentPage == page"
+          >
+            <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage == totalPages">
+            <a class="page-link" (click)="onNext()">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

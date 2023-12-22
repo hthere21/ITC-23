@@ -1,0 +1,48 @@
+<div class="recommendation-section">
+  <h2>Recommended Users</h2>
+  <div class="hold">
+    <div class="row">
+      <div *ngFor="let user of users" class="col-md-4 mb-2">
+        <div class="card" style="border-radius: 1rem 1rem 0 0;">
+          <img
+            src="assets/{{ user.gender }}.jpg"
+            class="card-img-top"
+            alt="Avatar"
+            style="
+              width: 100%;
+              object-fit: cover;
+              object-position: center;
+              height: 300px;
+              border-radius: 1rem 1rem 0 0;
+            "
+          />
+          <div class="card-body">
+            <span>
+              <h2 class="card-title">{{ user.name }}</h2>
+              <h4 class="card-subtitle mb-2 text-muted">
+                {{ user.gender }}, {{ user.age }} years old
+              </h4>
+            </span>
+            <p class="card-text">Looking to rent in area: {{ user.zipcode }}</p>
+            <p class="card-text">
+              University: {{ user.university }}, {{ user.major }}
+            </p>
+            <p class="card-text">
+              Type: <strong>{{ user.sleep | uppercase }}</strong>
+            </p>
+            <p class="card-text">Budget: ${{ user.budget }}</p>
+            <!-- <button class="btn btn-primary me-2" (click)="saveUser(user._id)">
+                Save
+              </button>
+              <button
+                class="btn btn-primary"
+                (click)="startChat(userInfo, user)"
+              >
+                Chat
+              </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
