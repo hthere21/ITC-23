@@ -1,0 +1,56 @@
+<div class="recommendation-section">
+  <h2>Recommended Users</h2>
+  <div class="hold">
+    <div *ngFor="let user of users" class="mb-2">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-5">
+            <img
+              src="assets/{{ user.gender }}.jpg"
+              class="img-fluid"
+              alt="Avatar"
+              style="
+                width: 90%;
+                height: 20rem;
+                padding: 0.1rem;
+                border-radius: 1rem;
+              "
+            />
+          </div>
+          <div class="col-md-7">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <h2 class="card-title mb-0">{{ user.name }}:</h2>
+                <h4 class="ms-3 mb-0">
+                  {{ user.gender }}, {{ user.age }} years old
+                </h4>
+              </div>
+              <h3 class="card-text mb-1">
+                Looking to rent in area: {{ user.zipcode }}
+              </h3>
+              <p class="card-text">Bio: {{ user.bio }}</p>
+              <p class="card-text">Major: {{ user.major }}</p>
+              <p class="card-text">University: {{ user.university }}</p>
+              <p class="card-text">
+                Type: <strong>{{ user.sleep | uppercase }}</strong>
+              </p>
+              <p class="card-text">Budget: ${{ user.budget }}</p>
+              <p class="card-text">
+                Move-in date: {{ user.move_in_date | date : "MMM d, y" }}
+              </p>
+              <!-- <button class="btn btn-primary me-2" (click)="saveUser(user._id)">
+                Save
+              </button>
+              <button
+                class="btn btn-primary"
+                (click)="startChat(userInfo, user)"
+              >
+                Chat
+              </button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

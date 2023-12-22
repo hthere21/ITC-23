@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserRecommendationComponent } from '../user-recommendation/user-recommendation.component';
 
 @Component({
   selector: 'app-home',
