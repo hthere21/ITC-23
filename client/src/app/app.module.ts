@@ -17,6 +17,7 @@ import { SavedListComponent } from './saved-list/saved-list.component';
 import { ChatComponent } from './chat/chat.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { FaqComponent } from './faq/faq.component';
+import { UserRecommendationComponent } from './user-recommendation/user-recommendation.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { FaqComponent } from './faq/faq.component';
     ChatComponent,
     AboutUsComponent,
     FaqComponent,
+    UserRecommendationComponent,
   ],
   imports: [
     BrowserModule,

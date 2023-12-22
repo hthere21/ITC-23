@@ -258,13 +258,11 @@ const updateUserControllerFn = async (req, res) => {
     }
 
     // if the update is successful, return a 200 HTTP status code along with the updated user data
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "User updated successfully",
-        user: updatedUser,
-      });
+    res.status(200).json({
+      success: true,
+      message: "User updated successfully",
+      user: updatedUser,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: "Internal server error" });
@@ -307,13 +305,11 @@ const saveUserControllerFn = async (req, res) => {
     );
 
     // Return a success response
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "User saved successfully",
-        user: updatedUser,
-      });
+    res.status(200).json({
+      success: true,
+      message: "User saved successfully",
+      user: updatedUser,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: "Internal server error" });
@@ -396,7 +392,8 @@ async function getFirstUserId(req, res) {
 }
 
 function suggestUsers(currentUser) {
-  const allUsers = getAllUsers();
+  // Get all users
+  const allUsers = getAllUsersControllerFn();
 
   // Calculate similarity scores based on location, university, major, and age
   const usersWithSimilarity = allUsers.map((user) => {
@@ -409,13 +406,36 @@ function suggestUsers(currentUser) {
     (a, b) => b.similarity - a.similarity
   );
 
-  // Return the sorted list of users
-  return sortedUsers.map((user) => user.user);
+  // Return the top 3 users
+  const top3Users = sortedUsers.slice(0, 3).map((user) => user.user);
+  return top3Users;
 }
 
+//Simple algorithm for calculating similarity
 function calculateSimilarity(user1, user2) {
-  // Implement your similarity metric based on location, university, major, and age
-  // Return a similarity score between 0 and 1
+  const locationDifference = Math.pow(user1.zipcode - user2.zipcode, 2);
+  const universityDifference = user1.university !== user2.university ? 1 : 0;
+  const majorDifference = user1.major !== user2.major ? 1 : 0;
+  const ageDifference = Math.pow(user1.age - user2.age, 2);
+
+  // Normalize differences between 0 and 1 (assuming reasonable ranges for attributes)
+  const maxLocationDifference = Math.pow(99999 - 0, 2); // Max possible difference for location
+  const maxAgeDifference = Math.pow(99 - 18, 2); // Max possible difference for age
+
+  const normalizedLocationDifference =
+    locationDifference / maxLocationDifference;
+  const normalizedAgeDifference = ageDifference / maxAgeDifference;
+
+  // Similarity is the inverse of the sum of normalized differences
+  const similarity =
+    1 /
+    (1 +
+      normalizedLocationDifference +
+      universityDifference +
+      majorDifference +
+      normalizedAgeDifference);
+
+  return similarity;
 }
 
 module.exports = {
