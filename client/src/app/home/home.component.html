@@ -156,9 +156,17 @@
         <div class="spinner"></div>
       </div>
       <!-- Show user cards if loading is false -->
-      <div>Hello</div>
       <app-user-recommendation></app-user-recommendation>
-      <mat-divider></mat-divider>
+      <hr
+        class="hr"
+        style="
+          border: solid grey;
+          border-width: 1px 0 0;
+          clear: both;
+          margin: 22px 0 21px;
+          height: 0;
+        "
+      />
       <div *ngIf="!loading && !noUsersFound">
         <div class="hold">
           <div *ngFor="let user of pagedUsers" class="mb-2">
@@ -180,7 +188,7 @@
                 <div class="col-md-7">
                   <div class="card-body">
                     <div class="d-flex align-items-center">
-                      <h2 class="card-title mb-0">{{ user.name }}:</h2>
+                      <h2 class="card-title mb-0">{{ user.name }}</h2>
                       <h4 class="ms-3 mb-0">
                         {{ user.gender }}, {{ user.age }} years old
                       </h4>
