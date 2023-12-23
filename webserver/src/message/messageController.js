@@ -31,7 +31,6 @@ async function createChat(req, res) {
     }
     
     // add chat history for receiver
-    
     if (receiver.chatHistory.indexOf(sender_id) === -1 && chat.message !== null) {
       receiver.chatHistory.push(sender);
       await receiver.save();

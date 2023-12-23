@@ -1,13 +1,12 @@
+html,
 body {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  margin: 0;
+  height: 100%;
 }
 
 .page-container {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 footer {
