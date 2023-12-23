@@ -1,34 +1,70 @@
 <div class="card">
-  <div class="container-fluid">
-    <div class="row">
+  <div class="container-fluid h-100">
+    <div class="row h-100">
       <div class="card-header bg-primary text-white">
         Chat with: {{ receiver }}
       </div>
       <div class="col-md-2 border-right p-0">
-        <div class="list-group" style="overflow-y: auto; max-height: 600px;">
-          <button class="list-group-item list-group-item-action btn-block w-100" *ngFor="let userId of chatHistory" (click)="onUserClick(userId.name, userId._id)">{{ userId.name }}</button>
+        <div class="list-group" style="overflow-y: auto; max-height: 100vh">
+          <button
+            class="list-group-item list-group-item-action btn-block w-100"
+            *ngFor="let userId of chatHistory"
+            (click)="onUserClick(userId.name, userId._id)"
+          >
+            {{ userId.name }}
+          </button>
         </div>
       </div>
       <div class="col-md-10 p-0 d-flex flex-column">
-        <div #chatWindow class="list-group-item flex-grow-1" style="overflow-y: auto; max-height: 400px;">
-          <div *ngIf="messageArray.length === 0" class="text-center text-muted">No messages yet</div>
-          <div *ngFor="let item of messageArray">
+        <div
+          #chatWindow
+          class="list-group-item chat-window"
+          style="
+            display: flex;
+            justify-content: center safe;
+            flex-direction: column;
+            height: 85vh;
+            overflow-y: auto;
+          "
+        >
+          <!-- 56px is the height of the card-header -->
+          <div *ngIf="messageArray.length === 0" class="text-center text-muted">
+            No messages yet
+          </div>
+          <div *ngFor="let item of messageArray" class="messages-container">
             <div *ngIf="item?.user == sender" class="text-right ml-auto">
-              <div class="bg-primary text-white rounded py-2 px-3 m-1 d-inline-block">
-                <p class="mb-0 mr-1" style="word-wrap: break-word;">{{ item.message }}</p>
+              <div
+                class="bg-primary text-white rounded py-2 px-3 m-1 d-inline-block"
+              >
+                <p class="mb-0 mr-1" style="word-wrap: break-word">
+                  {{ item.message }}
+                </p>
               </div>
             </div>
             <div *ngIf="item?.user != sender" class="text-left mr-auto">
-              <div class="bg-secondary text-white rounded py-2 px-3 m-1 d-inline-block">
-                <p class="mb-0" style="word-wrap: break-word;">{{ item.message }}</p>
+              <div
+                class="bg-secondary text-white rounded py-2 px-3 m-1 d-inline-block"
+              >
+                <p class="mb-0" style="word-wrap: break-word">
+                  {{ item.message }}
+                </p>
               </div>
             </div>
           </div>
         </div>
+
         <div class="card-footer">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Type a message" [(ngModel)]="messageText" (keyup.enter)="sendMessage()">
-            <button class="btn btn-primary" (click)="sendMessage()">Send</button>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Type a message"
+              [(ngModel)]="messageText"
+              (keyup.enter)="sendMessage()"
+            />
+            <button class="btn btn-primary" (click)="sendMessage()">
+              Send
+            </button>
           </div>
         </div>
       </div>
