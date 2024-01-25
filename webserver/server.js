@@ -26,7 +26,7 @@ let server = http.Server(app);
 
 let socketIO = require("socket.io");
 const io = socketIO(server, {
-  pingInterval: 10000, // ping every 10 seconds
+  pingInterval: 1000, // ping every 10 seconds
   pingTimeout: 5000, // wait 5 seconds for a ping response
 });
 
